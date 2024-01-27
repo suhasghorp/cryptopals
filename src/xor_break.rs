@@ -1,4 +1,5 @@
 
+// this function will calc weights at COMPILE TIME
 const fn gen_precomputed_weights() -> [(u8, u8);256] {
     let mut weights : [(u8,u8);256] = [(0u8,0u8);256];
     let mut i : usize = 0;
@@ -19,7 +20,7 @@ pub fn hamming_distance(a : &[u8], b: &[u8]) -> u32 {
 
     let mut sum: u32 = 0;
     for x in test {
-        sum += PRECOMUPTED_HAMMING_WTS.iter().filter(|(a,_)| x == *a).map(|x| x.1 as u32).sum::<u32>();
+        sum += PRECOMUPTED_HAMMING_WTS.iter().filter(|(a,_)| x == *a).map(|x| x.1 as u32).next().unwrap() ;
     }
     
     sum
