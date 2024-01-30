@@ -1,4 +1,5 @@
 ///! The Algorithm
+/// I could have just used the Hex crate from crates.io but that would be cheating :) so I do it the hard way
 /// Convert hex string into raw bytes - each hexadecimal symbol can be represented by four bits. 
 /// If two hexadecimal digits are taken together, they can be "packed" into an 8-bit byte by putting 
 /// the first character's four bits in one half of the byte, and the second character's four bits 

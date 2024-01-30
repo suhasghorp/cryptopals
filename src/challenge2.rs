@@ -2,13 +2,18 @@
 /// this is very easy - we are XORing 2 byte arrays, byte by byte.
 /// and then converting resulting array back to base64
 
-use crate::hex_base64;
+use crate::challenge1;
+
+pub fn xor_bytes(a : &str, b:&str) -> Vec<u8> {
+    assert_eq!(a.len(), b.len());
+    let a = challenge1::hex_to_bytes(a).unwrap();
+    let b = challenge1::hex_to_bytes(b).unwrap();
+    a.iter().zip(b).map(|(b1,b2)| b1^b2).collect::<Vec<_>>()
+}
 
 pub fn xor(a : &str, b:&str) -> String {
-    let a = hex_base64::hex_to_bytes(a).unwrap();
-    let b = hex_base64::hex_to_bytes(b).unwrap();
-    let c = a.iter().zip(b).map(|(b1,b2)| b1^b2).collect::<Vec<_>>();
-    hex_base64::to_hex_str(&c)
+    let c = xor_bytes(a, b);
+    challenge1::to_hex_str(&c)
 }
 
 #[cfg(test)]
