@@ -1,14 +1,8 @@
 // Set 1 Challenge 6
 
 use itertools::Itertools;
-use base64::prelude::*;
-use std::fs::File;
-use std::io::BufRead;
-use std::io::BufReader;
-use std::path::Path;
 use crate::challenge3::crack_xor_cipher;
 use crate::challenge3::ScoredGuess;
-
 
 const MAX_KEYSIZE:usize = 40;
 
@@ -77,26 +71,18 @@ pub fn crack_repeating_key_xor(bytes : &[u8],keysize:usize) -> (f32, Vec<u8>) {
     
 }
 
-pub fn from_base64_file(path: &Path) -> Vec<u8> {
-    let mut content = String::new();
-    let file = File::open(&path).unwrap();
-    let reader = BufReader::new(file);
-    for line in reader.lines() {
-        content.push_str(line.unwrap().trim());
-    }
-    BASE64_STANDARD.decode(content).unwrap()
-}
-
 #[cfg(test)]
 mod set1_six_tests{
     use super::*;  
     use crate::challenge5::repeating_key_xor;
+    use std::path::Path;
+    use crate::utility;
     #[test]
     fn xor_break_test(){
         let x = hamming_distance(b"this is a test", b"wokka wokka!!!");
         println!("{}", x);
 
-        let ciphertext = from_base64_file(Path::new("/home/sghorp/rustprojects/cryptopals/data/challenge6.txt"));
+        let ciphertext = utility::from_base64_file(Path::new("/home/sghorp/rustprojects/cryptopals/data/challenge6.txt"));
         let keysizes = guess_keysize(&ciphertext, 5);
         println!("Best key size guesses (confidence, size):");
         println!("{:?}", keysizes);
