@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-pub fn bytes_to_chunks(bytes:&[u8], chunk_size:usize) -> HashSet<&[u8]> {
+pub fn bytes_to_unique_chunks(bytes:&[u8], chunk_size:usize) -> HashSet<&[u8]> {
     
     (0..bytes.len())
     .step_by(chunk_size)
@@ -31,7 +31,7 @@ mod set1_eight_tests{
 
         for (idx, ciphertext) in ciphertexts.iter().enumerate(){
             let num_blocks = ciphertext.len() / BLOCK_SIZE;
-            let unique_chunks = bytes_to_chunks(&ciphertext, BLOCK_SIZE);
+            let unique_chunks = bytes_to_unique_chunks(&ciphertext, BLOCK_SIZE);
             let num_unique_blocks = unique_chunks.len();
             let repeated_blocks = num_blocks - num_unique_blocks;
             if repeated_blocks == 0{
